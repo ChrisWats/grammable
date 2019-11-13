@@ -48,6 +48,7 @@ class GramsController < ApplicationController
     @gram = Gram.find_by_id(params[:id])
       return render_not_found if @gram.blank?
       return render_not_found(:forbidden) if @gram.user != current_user
+      @gram.comments.destroy_all
       @gram.destroy
       redirect_to root_path
   end
